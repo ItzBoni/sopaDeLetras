@@ -48,6 +48,7 @@ public class Tablero extends userInput{
         }
     }
 
+    //Funcion que revisa si hay colisiones
     private boolean collisionCheck(boolean[][] boolMatrix, int i, int j) {
         boolean collision = false;
 
@@ -71,8 +72,11 @@ public class Tablero extends userInput{
 
             switch (tempDirection){
                 case 0: //Diagonal
-                    tempX = r.nextInt(10);
-                    tempY = r.nextInt(10);
+                    do{
+                        tempX = r.nextInt(10);
+                        tempY = r.nextInt(10);
+                    } while (collisionCheck(isOccupied, tempDirection, tempCounter));
+
                     for(int i = 0; i < tempCouLen; i++){
                          myTable[i+tempY][i+tempX] = wordArray[tempCounter].charAt(i);
                          isOccupied[i+tempY][i+tempX] = true;
@@ -80,8 +84,11 @@ public class Tablero extends userInput{
 
                     break;
                 case 1://Vertical
-                    tempX = r.nextInt(15);
-                    tempY = r.nextInt(10);
+                    do {
+                        tempX = r.nextInt(15);
+                        tempY = r.nextInt(10);
+                    } while (collisionCheck(isOccupied, tempDirection, tempCounter));
+
                     for(int i = 0; i < wordArray[tempCounter].length(); i++){
                         myTable[tempY+i][tempX] = wordArray[tempCounter].charAt(i);
                         isOccupied[i+tempY][tempX] = true;
@@ -89,8 +96,10 @@ public class Tablero extends userInput{
 
                     break;
                 case 2://Horizontal
-                    tempX = r.nextInt(10);
-                    tempY = r.nextInt(15);
+                    do{
+                        tempX = r.nextInt(10);
+                        tempY = r.nextInt(15);
+                    } while (collisionCheck(isOccupied, tempDirection, tempCounter));
 
                     for(int i = 0; i < wordArray[tempCounter].length(); i++){
                         myTable[tempY][tempX+i] = wordArray[tempCounter].charAt(i);
@@ -101,6 +110,19 @@ public class Tablero extends userInput{
 
             tempCounter++;
         }
+    }
+
+    //Función que remueve las letras del tablero cuando el jugador encuentre alguna de las coordenadas de la palabra
+    public void removeFromTable(){
+        
+    }
+
+    //Función que retorna un booleano si las palabras y las coordenadas coinciden
+    public boolean findWords(){
+        boolean correct = false;
+        
+
+        return correct;
     }
 
     public Tablero(){

@@ -6,9 +6,6 @@ public class App {
 
         Tablero gameTable = new Tablero();
         
-        gameTable.printTable();
-
-        gameTable.printTable();
-        
+        gameTable.printTable();    
     }
 }
