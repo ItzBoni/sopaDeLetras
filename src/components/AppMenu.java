@@ -46,7 +46,14 @@ public void showmenu(){
 
     public void registerPlayer(){
         System.out.println("ingrese el nombre del jugador: ");
-        String name = sc.nextline();
+        String name = sc.nextLine();
+        System.out.println("ingrese el ID del jugador: ");
+        int id = sc.nextInt();
+
+
+        Player player = new Player (id, name);}
+        player
+
     }
 
 
