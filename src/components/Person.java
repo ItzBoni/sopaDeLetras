@@ -7,14 +7,14 @@ public class Person {
     private String rol;
 
 
-    public Person (String name, int id){
+    public Person (int id, String name){
         this.name = name;
         this.id = id;
         num_game = 0;
     }
 
     public Person (){
-        name = "Nule";
+        name = "nule";
         id = 0;
     }
     
@@ -43,7 +43,7 @@ this.num_game = num_game;
 
 
 public int getnum_game (){
-    return id;
+    return num_game;
 }
 
 public void setRol(String rol){

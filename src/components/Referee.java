@@ -5,6 +5,8 @@ public class Referee extends Person{
 
      public Referee(int id, String nombre){
         vecesInterferidas = 0;   
+        setname(nombre);
+        setid(id);
     }
 
     public void setInterferencias(){
