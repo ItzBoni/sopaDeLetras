@@ -66,8 +66,6 @@ public class AppMenu {
         private void registerPersonas(){
         System.out.println("registrar jugadores o arbitros (minimo 3)" );
         System.out.println("minimo dos jugadores y un arbitro");
-        //cuantas personas desea registrar?
-        //int xdxd = sc.next int
 
         for (int i = 0; i < 20; i++){
             System.out.println("ingrese el nombre de la persona: ");
@@ -121,7 +119,7 @@ public class AppMenu {
             int playerChoice = sc.nextInt() - 1;
 
             if(playerChoice>=0 && playerChoice < contador){
-                selectedPlayers[i] = players [playerChoice   ];
+                selectedPlayers[i] = players [playerChoice  ];
                 System.out.println("Jugador seleccionado: " + selectedPlayers[i].getname());
 
             }else {
@@ -176,9 +174,6 @@ public class AppMenu {
     System.out.println("NO HAY PERSONAS REGISTRADAS");
 }
     }
-
-
-
 
 
 }

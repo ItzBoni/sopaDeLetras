@@ -1,9 +1,10 @@
 package components;
 import java.util.Scanner;
+import java.lang.String;
 
 public class Game {
   private Scanner sc = new Scanner(System.in);
-  private boolean condicion = true;
+  private String condicion;
   private boolean refereeIntervencion;
   AppMenu menu = new AppMenu();
   private Player player1;
@@ -23,8 +24,10 @@ public class Game {
     Tablero table = new Tablero(); //Crear el tablero
 
     System.out.println("Iniciar juego? true para sí, false para no");
-    condicion = sc.nextBoolean(); //Booleano para iniciar el juego, pura estetica 
-    if(condicion){
+    condicion = sc.nextLine(); //Booleano para iniciar el juego, pura estetica 
+    condicion = condicion.toUpperCase();
+
+    if(condicion.equals("TRUE")){
       do {
         for(int i = 0; i < 2; i++){
           table.printTable();
@@ -46,8 +49,10 @@ public class Game {
           }
 
         }
-      }while(table.wordsFound < 3);
+      }while(table.wordsFound < 8);
       //Salio del while
+    }else{
+      System.out.println("Juego cancelado");
     }
   }
 

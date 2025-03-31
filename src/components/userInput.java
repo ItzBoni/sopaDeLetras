@@ -50,6 +50,7 @@ public class userInput {
             case "D":
                 coords[0] = 0;
                 coords[1] = 3;
+                break;
             case "E":
                 coords[0] = 0;
                 coords[1] = 4;
@@ -57,6 +58,7 @@ public class userInput {
             case "F":
                 coords[0] = 0;
                 coords[1] = 5;
+                break;
             case "G":
                 coords[0] = 0;
                 coords[1] = 6;
@@ -92,6 +94,7 @@ public class userInput {
             case "O":
                 coords[0] = 0;
                 coords[1] = 14;
+                break;
             case "P":
                 coords[0] = 0;
                 coords[1] = 15;
@@ -101,11 +104,11 @@ public class userInput {
                 System.out.println("Por favor introduzca un valor valido");
                 break;
         }
-            if(coords[1] > 15 || coords[1] < 0){
+            if(Integer.parseInt(tempSeparator[1]) > 16 || Integer.parseInt(tempSeparator[1]) <= 0){
                 System.out.println("Por favor introduzca un valor valido");
                 exists = false;
             } else {
-                coords[1] = Integer.parseInt(tempSeparator[1]) - 1;
+                coords[0] = Integer.parseInt(tempSeparator[1]) - 1;
             }
         } while (!exists); 
 

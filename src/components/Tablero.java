@@ -84,7 +84,6 @@ public class Tablero extends userInput{
                 break;
         }
 
-        collision = boolMatrix[i][j];
 
         return collision;
     }
@@ -151,21 +150,22 @@ public class Tablero extends userInput{
                  switch(direction[i]){
                     case 0:
                         for (int j = 0; j < word.length(); j++) {
-                            myTable[j+coords[1]][j+coords[0]] = ' ';
-                            isOccupied[j+coords[1]][j+coords[0]] = true;
+                            myTable[j+coords[0]][j+coords[1]] = ' ';
+                            isOccupied[j+coords[0]][j+coords[1]] = true;
                         }
                         break;
                     case 1:
                         for (int j = 0; j < word.length(); j++) {
-                            myTable[coords[1]+j][coords[0]] = ' ';  
-                            isOccupied[coords[1]+j][coords[0]] = false;
+                            myTable[coords[0]+j][coords[1]] = ' ';  
+                            isOccupied[coords[0]+j][coords[1]] = false;
                         }
                         break;
                     case 2:
                         for(int j = 0; j < word.length(); j++) {
-                            myTable[coords[1]][coords[0]+j] = ' ';  
-                            isOccupied[coords[1]][coords[0]+j] = false;
+                            myTable[coords[0]][coords[1]+j] = ' ';  
+                            isOccupied[coords[1]][coords[1]+j] = false;
                         }
+                        break;
             }
         } //agregue ese for para que ponga vacio las palabras y unos parametros a la funcion para que "jale" supongo
     }
@@ -176,11 +176,10 @@ public class Tablero extends userInput{
         boolean correct = false;
         System.out.println("Por favor introduzca la palabra que encontró");
         String wordFound = captureSingleWord();
-        System.out.println("Por favor introduzca las coordenadas de la palabra");
         int[] coords = captureCoordinates();
         
         for (int i = 0; i < 8; i++) {
-            if (wordArray[i].equals(wordFound)  && myTable[coords[0]][coords[1]] == wordFound.charAt(0)) {
+            if (wordArray[i].equals(wordFound) && (myTable[coords[0]][coords[1]] == wordFound.charAt(0))) {
                 correct = true;
                 System.out.println("Palabra encontrada");
                 break;
@@ -188,7 +187,7 @@ public class Tablero extends userInput{
         }
 
         if (correct) {
-            //removeFromTable(coords, wordFound); //le agrege parametros aqui de las cordenadas y la palabra
+            removeFromTable(coords, wordFound); //le agrege parametros aqui de las cordenadas y la palabra
             wordsFound++;
             System.out.println("Tienes " + wordsFound + " palabras encontradas");
         } else {
