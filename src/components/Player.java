@@ -45,11 +45,11 @@ public class Player extends Person implements statistics{
 
     @Override
     public void wins(){
-        System.out.println(getname() + "llevas: " + ganados + "juegos ganados.");
+        System.out.println(getname() + " llevas: " + ganados + " juegos ganados.");
     }
     @Override
     public void imprimirAciertos(){
-        System.out.println(getname() + "llevas: " + aciertos + "aciertos.");
+        System.out.println(getname() + " llevas: " + aciertos + " aciertos.");
     }
 
     public void imprimirNombres(){

@@ -54,19 +54,21 @@ public class Game {
 
   public void finJuego(){
     int aciertos1 = player1.getAciertos();
-    player1.imprimirAciertos();
-    player1.wins();
     int aciertos2 = player2.getAciertos();
-    player2.imprimirAciertos();
-    player2.wins();
 
     if(aciertos1 > aciertos2){
       System.out.println("Ganador: " + player1.getname());
-    }else if(aciertos1 >  aciertos2){
+      player1.gainPoint();
+    }else if(aciertos1 <  aciertos2){
       System.out.println("Ganador: " + player2.getname());
+      player2.gainPoint();
     }else{
       System.out.println("Empate!!!");
     }
+    player1.imprimirAciertos();
+    player1.wins();
+    player2.imprimirAciertos();
+    player2.wins();
   }
 }
 

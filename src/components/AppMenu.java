@@ -7,38 +7,62 @@ public class AppMenu {
     private Player[] players = new Player[20];
     private Referee[] referees = new Referee[20];
     private int contador = 0;
+    private int contadorplayer = 0;
+
     private int numeroRondas;
     private int numeroJugadores;
 
     public void ShowMenu(){
-        registerPersonas();
+        boolean exit = false;
+        boolean personas_registradas = false;
 
-        System.out.println("ingrese el numero de rondas: ");
-        numeroRondas = sc.nextInt();
+        while (!exit){
+        System.out.println("\n--- Menú Principal ---");
+        System.out.println("1. Registrar Jugadores y Árbitros");
+        System.out.println("2. Iniciar Juego");
+        System.out.println("3. Ver Estadísticas");
+        System.out.println("4. Salir");
+        System.out.print("Seleccione una opción: ");
+        int opcion = sc.nextInt();
+        sc.nextLine();
+
+        switch (opcion){
+            case 1:
+            registerPersonas();
+            personas_registradas = true;
+            break;
+            case 2:
+            StartGame(personas_registradas);
+             break;
+            case 3:
+            System.out.println("estadisticas");
+            System.out.println("numero de rondas: " + numeroRondas);
+            System.out.println("numero de jugadores: " + numeroJugadores);
+            System.out.println("personas registradas: " + contador);
+            for (int i = 0; i <contadorplayer; i++) {
+                System.out.println("Jugador " + (i + 1) + ": " + players[i].getname());
+                System.out.println("Aciertos: " + players[i].getAciertos());
+               players[i].wins();
+               players[i].imprimirAciertos();
+                players[i].getJuegosJugados();
+            }
+            break;
+            case 4:
+            exit = true;
+            System.out.println("graciaaas por jugar");
+            break;
+            default:
+            System.out.println("opcion invalida");
+            break;
+        
 
 
-        System.out.println("ingrese el numero de jugadores: ");
-        numeroJugadores = sc.nextInt();
-
-        if (numeroJugadores < 1 || numeroJugadores>2){
-            System.out.println("debe ser 1 o 2 jugadores");
-            return;
+            }
         }
-        Player[] selectedPlayers = selectPlayers();
-        Referee selectedReferee = selectReferee();
-
-        int rondaactual = 1;
-        do {
-            System.out.println("iniciando la ronda" + rondaactual);
-             Game game = new Game(selectedPlayers[0], selectedPlayers[1], selectedReferee);
-             game.iniciarJuego();
-             game.finJuego();
-             rondaactual++;
-        }while (rondaactual <= numeroRondas);
-
-
     }
+    
 
+//--------------------------PARA EL CASO 1 DE REGISTAR PERSONAS---------------------------------------------
         private void registerPersonas(){
         System.out.println("registrar jugadores o arbitros (minimo 3)" );
         System.out.println("minimo dos jugadores y un arbitro");
@@ -58,6 +82,7 @@ public class AppMenu {
                 Player player = new Player(id, name);
                 player.setRol("Jugador");
                 players[contador] = player;
+                contadorplayer++;
 
             }else if (tipo.equalsIgnoreCase("A")) {
                 Referee referee = new Referee(id, name);
@@ -72,22 +97,21 @@ public class AppMenu {
             System.out.println("registrado con exito");
             contador++;
 
+
+            if (contador >= 3){
             if (contador < 20 ){
                 System.out.print("¿Registrar otra persona? (S/N): ");
                 String response = sc.nextLine();
                 
                 if (response.equalsIgnoreCase("N")){
-                    if (contador<3){
-                        System.out.print("registra otra persona (MINIMO SON 3 :V)");
-                        System.out.print(" llevas: " + contador + " personas apenas registradas");
-                    }
                     break;
                 }
+            }
             }
         }
     }      
 
-        //pa seleccionar jugadores o arbitro
+//----------------------------PA SELECCIONAR JUGADORES O ARBITRO (PAL CASO 2)---------------------------------------------------------
         //jugador
         private Player[] selectPlayers(){
             Player[] selectedPlayers = new Player [2];
@@ -121,5 +145,41 @@ public class AppMenu {
             return referees[0];  
         }
     }
+
+//--------------------------------------CASO 2 DE INICIAR JUEGO-------------------------------------------
+    private void StartGame(boolean registeredPersons){
+        if (registeredPersons){
+            System.out.println("ingrese el numero de rondas: ");
+    numeroRondas = sc.nextInt();    
+
+    System.out.println("ingrese el numero de jugadores: ");
+    numeroJugadores = sc.nextInt();
+
+    if (numeroJugadores < 1 || numeroJugadores>2){
+        System.out.println("debe ser 1 o 2 jugadores");
+        return;
+    }
+    Player[] selectedPlayers = selectPlayers();
+    Referee selectedReferee = selectReferee();
+
+    int rondaactual = 1;
+
+    do {
+        System.out.println("iniciando la ronda" + rondaactual);
+         Game game = new Game(selectedPlayers[0], selectedPlayers[1], selectedReferee);
+         game.iniciarJuego();
+         game.finJuego();
+         rondaactual++;
+    }while (rondaactual <= numeroRondas);
+    System.out.println("fin del juego");
+}else {
+    System.out.println("NO HAY PERSONAS REGISTRADAS");
+}
+    }
+
+
+
+
+
 }
         

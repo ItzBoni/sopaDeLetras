@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class userInput {
     private Scanner sc = new Scanner(System.in);
-    protected String[] inputArray = new String[3];
+    protected String[] inputArray = new String[8];
     public String[] captureUserInput(){
         String tempWord = "";
         System.out.println("Por favor ingrese 8 palabras de 5 letras maximo");
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 8; i++) {
             tempWord = sc.nextLine();
 
             while(tempWord.length() > 5) {

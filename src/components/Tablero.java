@@ -50,8 +50,39 @@ public class Tablero extends userInput{
     }
 
     //Funcion que revisa si hay colisiones
-    private boolean collisionCheck(boolean[][] boolMatrix, int i, int j) { 
+    private boolean collisionCheck(boolean[][] boolMatrix, int i, int j, int dir, String word) { 
         boolean collision = false;
+
+        switch (dir) {
+            case 0://Diagonal
+                for (int temp = 0; temp < word.length(); temp++) {
+                    if(boolMatrix[temp+i][temp+j]){
+                        collision = true;
+                        break;
+                    }
+                }
+                break;
+            case 1: //Vertical
+                for (int temp = 0; temp < word.length(); temp++) {
+                    if(boolMatrix[temp+i][j])
+                    {
+                        collision = true;
+                        break;
+                    }
+                }
+                break;
+            case 2: //Horizontal
+                for (int temp = 0; temp < word.length(); temp++) {
+                    if (boolMatrix[i][temp+j])
+                    {
+                        collision = true;
+                        break;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
 
         collision = boolMatrix[i][j];
 
@@ -65,7 +96,7 @@ public class Tablero extends userInput{
         }
         int tempCounter = 0;
         //Intento agregar la palabra en una posicion random y si colisiona entonces la mando a otra posicion
-        while (tempCounter < 3) {
+        while (tempCounter < 8) {
             int tempX = 0;
             int tempY = 0;
             direction[tempCounter] = r.nextInt(2);
@@ -76,7 +107,7 @@ public class Tablero extends userInput{
                     do{
                         tempX = r.nextInt(10);
                         tempY = r.nextInt(10);
-                    } while (collisionCheck(isOccupied, direction[tempCounter], tempCounter));
+                    } while (collisionCheck(isOccupied, tempY, tempX, direction[tempCounter], wordArray[tempCounter]));
 
                     for(int i = 0; i < tempCouLen; i++){
                          myTable[i+tempY][i+tempX] = wordArray[tempCounter].charAt(i);
@@ -88,7 +119,7 @@ public class Tablero extends userInput{
                     do {
                         tempX = r.nextInt(15);
                         tempY = r.nextInt(10);
-                    } while (collisionCheck(isOccupied, direction[tempCounter], tempCounter));
+                    } while (collisionCheck(isOccupied, tempY, tempX, direction[tempCounter], wordArray[tempCounter]));
 
                     for(int i = 0; i < wordArray[tempCounter].length(); i++){
                         myTable[tempY+i][tempX] = wordArray[tempCounter].charAt(i);
@@ -100,7 +131,7 @@ public class Tablero extends userInput{
                     do{
                         tempX = r.nextInt(10);
                         tempY = r.nextInt(15);
-                    } while (collisionCheck(isOccupied, direction[tempCounter], tempCounter));
+                    } while (collisionCheck(isOccupied, tempY, tempX, direction[tempCounter], wordArray[tempCounter]));
 
                     for(int i = 0; i < wordArray[tempCounter].length(); i++){
                         myTable[tempY][tempX+i] = wordArray[tempCounter].charAt(i);
@@ -115,25 +146,25 @@ public class Tablero extends userInput{
 
     //Función que remueve las letras del tablero cuando el jugador encuentre alguna de las coordenadas de la palabra
     void removeFromTable(int[] coords, String word){
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 8; i++) {
             if (wordArray[i].equals(word)) {
                  switch(direction[i]){
                     case 0:
                         for (int j = 0; j < word.length(); j++) {
-                            myTable[j+coords[0]][j+coords[1]] = ' ';
-                            isOccupied[j+coords[0]][j+coords[1]] = true;
+                            myTable[j+coords[1]][j+coords[0]] = ' ';
+                            isOccupied[j+coords[1]][j+coords[0]] = true;
                         }
                         break;
                     case 1:
                         for (int j = 0; j < word.length(); j++) {
-                            myTable[coords[0]+j][coords[1]] = ' ';  
-                            isOccupied[coords[0]+j][coords[1]] = false;
+                            myTable[coords[1]+j][coords[0]] = ' ';  
+                            isOccupied[coords[1]+j][coords[0]] = false;
                         }
                         break;
                     case 2:
                         for(int j = 0; j < word.length(); j++) {
-                            myTable[coords[0]][coords[1]+j] = ' ';  
-                            isOccupied[coords[0]][coords[1]+j] = false;
+                            myTable[coords[1]][coords[0]+j] = ' ';  
+                            isOccupied[coords[1]][coords[0]+j] = false;
                         }
             }
         } //agregue ese for para que ponga vacio las palabras y unos parametros a la funcion para que "jale" supongo
@@ -148,8 +179,8 @@ public class Tablero extends userInput{
         System.out.println("Por favor introduzca las coordenadas de la palabra");
         int[] coords = captureCoordinates();
         
-        for (int i = 0; i < 3; i++) {
-            if (wordArray[i].equals(wordFound)){ //&& collisionCheck(isOccupied, coords[0], coords[1]) && myTable[coords[0]][coords[1]] == wordFound.charAt(0)) {
+        for (int i = 0; i < 8; i++) {
+            if (wordArray[i].equals(wordFound)  && myTable[coords[0]][coords[1]] == wordFound.charAt(0)) {
                 correct = true;
                 System.out.println("Palabra encontrada");
                 break;
@@ -157,10 +188,12 @@ public class Tablero extends userInput{
         }
 
         if (correct) {
-            removeFromTable(coords, wordFound); //le agrege parametros aqui de las cordenadas y la palabra
+            //removeFromTable(coords, wordFound); //le agrege parametros aqui de las cordenadas y la palabra
             wordsFound++;
             System.out.println("Tienes " + wordsFound + " palabras encontradas");
-        }   
+        } else {
+            System.out.println("Respuesta incorrecta, intenta de nuevo");
+        }
 
         return correct;
     }
